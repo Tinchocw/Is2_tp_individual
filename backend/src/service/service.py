@@ -1,6 +1,5 @@
 from functools import reduce
-
-from models.snap_msg import SnapMsg
+from backend.models.snap_msg import SnapMsg
 
 
 class Service:
