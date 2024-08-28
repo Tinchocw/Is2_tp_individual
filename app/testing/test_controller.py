@@ -2,7 +2,7 @@ import unittest
 from src.controller.controller import Controller
 from app.src.controller.exceptions import BodyBadRequestException
 
-from app.src.schemas.schemas import SnapMsgCreate, SnapResponse
+from app.src.schemas.schemas import SnapMsgCreate
 
 
 class TestController(unittest.TestCase):
@@ -29,7 +29,7 @@ class TestController(unittest.TestCase):
         with self.assertRaises(BodyBadRequestException) as context:
             self.controller.create_snap_msg(one_snap_msg)
 
-        self.assertEqual(context.exception.status_code, 400)
+        self.assertEqual(context.exception.status_code, Controller.http_400_bad_request())
         self.assertEqual(context.exception.type, "about:blank")
         self.assertEqual(context.exception.title, "Message Empty")
         self.assertEqual(context.exception.detail, "Message field cannot be empty")

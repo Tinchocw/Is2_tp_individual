@@ -21,7 +21,7 @@ class Router:
     '''private'''
     def _setup_routes(self):
 
-        @self.router.post("/snap_msg/", status_code=201, summary="Create a new snap")
+        @self.router.post("/snap_msg/", status_code=Controller.http_201_created(), summary="Create a new snap")
         async def create_snap_msg(snap_msg: SnapMsgCreate):
             try:
                 return self.controller.create_snap_msg(snap_msg)

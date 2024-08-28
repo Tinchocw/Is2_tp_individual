@@ -6,6 +6,26 @@ class Controller:
     def __init__(self):
         self.service = Service()
 
+    @classmethod
+    def http_200_ok(cls):
+        return 200
+
+    @classmethod
+    def http_400_bad_request(cls):
+        return 400
+
+    @classmethod
+    def http_201_created(cls):
+        return 201
+
+    @classmethod
+    def http_404_not_found(cls):
+        return 404
+
+    @classmethod
+    def http_500_internal_server_error(cls):
+        return 500
+
     '''Main protocol'''
 
     def create_snap_msg(self, a_snap_msg):
@@ -23,7 +43,7 @@ class Controller:
     def _check_empty_message(self, a_snap_msg):
         if a_snap_msg == "":
             raise BodyBadRequestException(
-                status_code=400,
+                status_code=Controller.http_400_bad_request(),
                 type="about:blank",
                 title="Message Empty",
                 detail="Message field cannot be empty",
