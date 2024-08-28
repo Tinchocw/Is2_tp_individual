@@ -1,6 +1,6 @@
 import unittest
 from src.controller.controller import Controller, BodyBadRequestException
-from backend.src.schemas.schemas import SnapMsgCreate, SnapResponse
+from app.src.schemas.schemas import SnapMsgCreate, SnapResponse
 
 
 class TestController(unittest.TestCase):

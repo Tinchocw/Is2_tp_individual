@@ -1,4 +1,4 @@
-from backend.src.service.service import Service
+from app.src.service.service import Service
 
 
 class BodyBadRequestException(Exception):
@@ -8,6 +8,15 @@ class BodyBadRequestException(Exception):
         self.detail = detail
         self.title = title
         self.instance = instance
+
+    def to_dic(self):
+        return {
+            "type": self.type,
+            "title": self.title,
+            "status": self.status_code,
+            "detail": self.detail,
+            "instance": self.instance
+        }
 
 
 class Controller:
