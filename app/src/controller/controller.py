@@ -1,22 +1,5 @@
 from app.src.service.service import Service
-
-
-class BodyBadRequestException(Exception):
-    def __init__(self, status_code, type, title, detail, instance):
-        self.status_code = status_code
-        self.type = type
-        self.detail = detail
-        self.title = title
-        self.instance = instance
-
-    def to_dic(self):
-        return {
-            "type": self.type,
-            "title": self.title,
-            "status": self.status_code,
-            "detail": self.detail,
-            "instance": self.instance
-        }
+from app.src.controller.exceptions import BodyBadRequestException
 
 
 class Controller:
@@ -50,7 +33,7 @@ class Controller:
     def _create_snap_response(self, a_snap_msg):
         snap_response_expected = {
             "id": a_snap_msg.msg_id,
-            "mensaje": a_snap_msg.msg
+            "message": a_snap_msg.msg
         }
         return {"data": snap_response_expected}
 
