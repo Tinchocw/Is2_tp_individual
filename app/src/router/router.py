@@ -19,6 +19,7 @@ class Router:
         return self.router
 
     '''private'''
+
     def _setup_routes(self):
 
         @self.router.post("/snap_msg/", status_code=Controller.http_201_created(), summary="Create a new snap")
@@ -30,7 +31,31 @@ class Router:
                     status_code=e.status_code,
                     content=e.to_dic()
                 )
+            except Exception as e:
+                return JSONResponse(
+                    status_code=Controller.http_500_internal_server_error(),
+                    content={
+                        "type": "about:blank",
+                        "title": "Internal Server Error",
+                        "status": Controller.http_500_internal_server_error(),
+                        "detail": str(e),
+                        "instance": "/snap_msg/"
+                    }
+                )
 
         @self.router.get("/snap_msg/", summary="A list of snaps")
         async def get_snap_messages():
-            return self.controller.get_feed()
+
+            try:
+                return self.controller.get_feed()
+            except Exception as e:
+                return JSONResponse(
+                    status_code=Controller.http_500_internal_server_error(),
+                    content={
+                        "type": "about:blank",
+                        "title": "Internal Server Error",
+                        "status": Controller.http_500_internal_server_error(),
+                        "detail": str(e),
+                        "instance": "/snap_msg/"
+                    }
+                )
