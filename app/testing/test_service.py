@@ -1,5 +1,5 @@
 import unittest
-from src.service.service import Service
+from app.src.service.service import Service
 
 
 class ServiceTest(unittest.TestCase):

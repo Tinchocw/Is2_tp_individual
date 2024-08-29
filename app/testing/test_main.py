@@ -3,7 +3,7 @@ from app.src.controller.controller import Controller
 from app.main import app
 
 
-class TestIntegration:
+class TestMain:
 
     def setup_method(self):
         self.client = TestClient(app)

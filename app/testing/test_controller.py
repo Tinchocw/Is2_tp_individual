@@ -1,5 +1,5 @@
 import unittest
-from src.controller.controller import Controller
+from app.src.controller.controller import Controller
 from app.src.controller.exceptions import BodyBadRequestException
 
 from app.src.schemas.schemas import SnapMsgCreate
@@ -17,7 +17,7 @@ class TestController(unittest.TestCase):
 
         snap_response_expected = {
             "id": 1,
-            "mensaje": "Hello"
+            "message": "Hello"
         }
         snap_response_body_expected = {"data": snap_response_expected}
 

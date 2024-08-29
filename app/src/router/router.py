@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.controller.controller import Controller
-from src.controller.exceptions import BodyBadRequestException
+from app.src.controller.controller import Controller
+from app.src.controller.exceptions import BodyBadRequestException
 
-from src.schemas.schemas import SnapMsgCreate
+from app.src.schemas.schemas import SnapMsgCreate
 
 
 class Router:

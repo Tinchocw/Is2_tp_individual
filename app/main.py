@@ -2,7 +2,7 @@ import os
 
 import uvicorn
 from fastapi import FastAPI
-from src.router.router import Router
+from app.src.router.router import Router
 from dotenv import load_dotenv
 
 load_dotenv()
