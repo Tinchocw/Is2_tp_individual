@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from app.src.controller.controller import Controller
-from app.src.controller.exceptions import BodyBadRequestException
+from src.controller.controller import Controller
+from src.controller.exceptions import BodyBadRequestException
 
-from app.src.schemas.schemas import SnapMsgCreate
+from src.schemas.schemas import SnapMsgCreate
 
 
 class Router:
@@ -32,16 +32,7 @@ class Router:
                     content=e.to_dic()
                 )
             except Exception as e:
-                return JSONResponse(
-                    status_code=Controller.http_500_internal_server_error(),
-                    content={
-                        "type": "about:blank",
-                        "title": "Internal Server Error",
-                        "status": Controller.http_500_internal_server_error(),
-                        "detail": str(e),
-                        "instance": "/snap_msg/"
-                    }
-                )
+                return self._internal_server_error_response(e)
 
         @self.router.get("/snap_msg/", summary="A list of snaps")
         async def get_snap_messages():
@@ -49,13 +40,16 @@ class Router:
             try:
                 return self.controller.get_feed()
             except Exception as e:
-                return JSONResponse(
-                    status_code=Controller.http_500_internal_server_error(),
-                    content={
-                        "type": "about:blank",
-                        "title": "Internal Server Error",
-                        "status": Controller.http_500_internal_server_error(),
-                        "detail": str(e),
-                        "instance": "/snap_msg/"
-                    }
-                )
+                return self._internal_server_error_response(e)
+
+    def _internal_server_error_response(self, exception):
+        return JSONResponse(
+            status_code=Controller.http_500_internal_server_error(),
+            content={
+                "type": "about:blank",
+                "title": "Internal Server Error",
+                "status": Controller.http_500_internal_server_error(),
+                "detail": f"{str(exception)}",
+                "instance": "/snap_msg/"
+            }
+        )

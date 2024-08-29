@@ -1,5 +1,5 @@
-from app.src.service.service import Service
-from app.src.controller.exceptions import BodyBadRequestException
+from src.service.service import Service
+from src.controller.exceptions import BodyBadRequestException
 
 
 class Controller:
