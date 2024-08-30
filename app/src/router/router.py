@@ -16,6 +16,58 @@ class Router:
         self.controller = Controller()
         self._setup_routes()
 
+
+    @classmethod
+    def post_response_model(cls):
+        return {
+            Controller.http_201_created(): {
+                "description": "Snap created successfully",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {"type": "integer"},
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    @classmethod
+    def get_response_model(cls):
+        return {
+            Controller.http_200_ok(): {
+                "description": "A list of snaps",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {"type": "integer"},
+                                            "message": {"type": "string"}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     '''Main protocol'''
 
     def get_router(self):
@@ -25,7 +77,8 @@ class Router:
 
     def _setup_routes(self):
 
-        @self.router.post("/snap_msg/", status_code=Controller.http_201_created(), summary="Create a new snap")
+        @self.router.post("/snap_msg/", status_code=Controller.http_201_created(), summary="Create a new snap",
+                          responses=Router.post_response_model())
         async def create_snap_msg(snap_msg: SnapMsgCreate):
             try:
                 return self.controller.create_snap_msg(snap_msg)
@@ -37,7 +90,7 @@ class Router:
             except Exception as e:
                 return self._internal_server_error_response(e)
 
-        @self.router.get("/snap_msg/", summary="A list of snaps")
+        @self.router.get("/snap_msg/", summary="A list of snaps", responses=Router.get_response_model())
         async def get_snap_messages():
 
             try:
