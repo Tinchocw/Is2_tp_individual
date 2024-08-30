@@ -35,6 +35,7 @@ class Controller:
         logger.info("Creating a new snap")
 
         self._check_empty_message(a_snap_msg.message)
+        self._check_length_message(a_snap_msg.message)
         snap_msg = self.service.create_snap_msg(a_snap_msg.message)
 
         logger.info("Snap created")
@@ -57,6 +58,18 @@ class Controller:
                 type="about:blank",
                 title="Message Empty",
                 detail="Message field cannot be empty",
+                instance="/snap_msg/"
+            )
+
+    def _check_length_message(self, a_snap_msg):
+        if len(a_snap_msg) > 280:
+            logger.info("Message field is too long")
+
+            raise BodyBadRequestException(
+                status_code=Controller.http_400_bad_request(),
+                type="about:blank",
+                title="Message Too Long",
+                detail="Message field cannot be longer than 280 characters",
                 instance="/snap_msg/"
             )
 

@@ -77,6 +77,18 @@ class TestController(unittest.TestCase):
 
         self.assertEqual(self.controller.get_feed(), expected_feed_response)
 
+    def test_06_can_not_create_280_character_lenght_snap_message(self):
+        snap_msg = SnapMsgCreate(message="a" * 281)
+
+        with self.assertRaises(BodyBadRequestException) as context:
+            self.controller.create_snap_msg(snap_msg)
+
+        self.assertEqual(context.exception.status_code, Controller.http_400_bad_request())
+        self.assertEqual(context.exception.type, "about:blank")
+        self.assertEqual(context.exception.title, "Message Too Long")
+        self.assertEqual(context.exception.detail, "Message field cannot be longer than 280 characters")
+        self.assertEqual(context.exception.instance, "/snap_msg/")
+
 
 if __name__ == '__main__':
     unittest.main()
