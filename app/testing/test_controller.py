@@ -1,6 +1,8 @@
 import unittest
 from app.src.controller.controller import Controller
 from app.src.controller.exceptions import BodyBadRequestException
+from unittest.mock import patch
+from uuid import UUID
 
 from app.src.schemas.schemas import SnapMsgCreate
 
@@ -11,12 +13,14 @@ class TestController(unittest.TestCase):
         self.controller = Controller()
         self.one_snap_message = SnapMsgCreate(message="Hello")
         self.another_snap_message = SnapMsgCreate(message="Goodbye")
+        self.mock_uuid = UUID("12345678123456781234567812345678")
 
-    def test_01_create_snap_message_with_valid_body_request(self):
+    @patch('uuid.uuid4', return_value=UUID("12345678123456781234567812345678"))
+    def test_01_create_snap_message_with_valid_body_request(self, mock_uuid):
         snap_response = self.controller.create_snap_msg(self.one_snap_message)
 
         snap_response_expected = {
-            "id": 1,
+            "id": str(self.mock_uuid),
             "message": "Hello"
         }
         snap_response_body_expected = {"data": snap_response_expected}
@@ -44,13 +48,14 @@ class TestController(unittest.TestCase):
 
         self.assertEqual(feed, expected_feed_response)
 
-    def test_04_feed_format_is_correct_with_one_snap(self):
+    @patch('uuid.uuid4', return_value=UUID("12345678123456781234567812345678"))
+    def test_04_feed_format_is_correct_with_one_snap(self, mock_uuid):
         self.controller.create_snap_msg(self.one_snap_message)
 
         expected_feed_response = {
             "data": [
                 {
-                    "id": 1,
+                    "id": str(self.mock_uuid),
                     "message": self.one_snap_message.message
                 }
             ]
@@ -58,18 +63,19 @@ class TestController(unittest.TestCase):
 
         self.assertEqual(self.controller.get_feed(), expected_feed_response)
 
-    def test_05_feed_format_is_correct_with_multiple_snaps(self):
+    @patch('uuid.uuid4', side_effect=[UUID("12345678123456781234567812345678"), UUID("87654321876543218765432187654321")])
+    def test_05_feed_format_is_correct_with_multiple_snaps(self, mock_uuid):
         self.controller.create_snap_msg(self.one_snap_message)
         self.controller.create_snap_msg(self.another_snap_message)
 
         expected_feed_response = {
             "data": [
                 {
-                    "id": 2,
+                    "id": str(UUID("87654321876543218765432187654321")),
                     "message": self.another_snap_message.message
                 },
                 {
-                    "id": 1,
+                    "id": str(UUID("12345678123456781234567812345678")),
                     "message": self.one_snap_message.message
                 }
             ]

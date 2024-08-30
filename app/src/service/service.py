@@ -11,7 +11,7 @@ class Service:
     '''Main protocol'''
 
     def create_snap_msg(self, snap_msg):
-        msg = SnapMsg(uuid.uuid4(), snap_msg)
+        msg = SnapMsg(str(uuid.uuid4()), snap_msg)
         self.feed.append(msg)
         return msg
 
