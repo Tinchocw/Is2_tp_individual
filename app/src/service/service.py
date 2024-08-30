@@ -1,17 +1,17 @@
 from functools import reduce
 from app.models.snap_msg import SnapMsg
+import uuid
 
 
 class Service:
     def __init__(self):
         self.feed = []
-        self.id_counter = 0
+
 
     '''Main protocol'''
 
     def create_snap_msg(self, snap_msg):
-        self.id_counter += 1
-        msg = SnapMsg(self.id_counter, snap_msg)
+        msg = SnapMsg(uuid.uuid4(), snap_msg)
         self.feed.append(msg)
         return msg
 

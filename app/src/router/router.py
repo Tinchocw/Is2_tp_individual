@@ -28,7 +28,8 @@ class Router:
                                 "data": {
                                     "type": "object",
                                     "properties": {
-                                        "id": {"type": "integer"},
+                                        "id": {"type": "string",
+                                               "format": "uuid"},
                                         "message": {"type": "string"}
                                     }
                                 }
@@ -53,7 +54,8 @@ class Router:
                                     "items": {
                                         "type": "object",
                                         "properties": {
-                                            "id": {"type": "integer"},
+                                            "id": {"type": "string",
+                                                   "format": "uuid"},
                                             "message": {"type": "string"}
                                         }
                                     }
