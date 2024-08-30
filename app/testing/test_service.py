@@ -31,7 +31,7 @@ class ServiceTest(unittest.TestCase):
         another_msg = self.service.create_snap_msg(self.msg)
 
         snap_msgs = self.service.get_feed()
-        expected_snap_msgs = [another_msg.msg, one_msg.msg]
+        expected_snap_msgs = [another_msg, one_msg]
 
         self.assertEqual(snap_msgs, expected_snap_msgs)
 
