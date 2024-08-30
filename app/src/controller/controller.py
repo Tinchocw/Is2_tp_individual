@@ -1,5 +1,8 @@
 from app.src.service.service import Service
 from app.src.controller.exceptions import BodyBadRequestException
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Controller:
@@ -29,12 +32,17 @@ class Controller:
     '''Main protocol'''
 
     def create_snap_msg(self, a_snap_msg):
+        logger.info("Creating a new snap")
+
         self._check_empty_message(a_snap_msg.message)
         snap_msg = self.service.create_snap_msg(a_snap_msg.message)
+
+        logger.info("Snap created")
 
         return self._create_snap_response(snap_msg)
 
     def get_feed(self):
+        logger.info("Getting feed")
         feed = self.service.get_feed()
         return self._get_feed_body_response(feed)
 
@@ -42,6 +50,8 @@ class Controller:
 
     def _check_empty_message(self, a_snap_msg):
         if a_snap_msg == "":
+            logger.info("Message field is empty")
+
             raise BodyBadRequestException(
                 status_code=Controller.http_400_bad_request(),
                 type="about:blank",

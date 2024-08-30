@@ -5,6 +5,9 @@ from app.src.controller.controller import Controller
 from app.src.controller.exceptions import BodyBadRequestException
 
 from app.src.schemas.schemas import SnapMsgCreate
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Router:
