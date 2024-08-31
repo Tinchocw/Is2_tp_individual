@@ -1,11 +1,11 @@
 import unittest
 from app.src.controller.controller import Controller
 from app.src.controller.status import Status
-from app.src.controller.exceptions import EmptyMessageException, MessageTooLongException, ObjectNotFoundException
+from app.src.exceptions.exceptions import EmptyMessageException, MessageTooLongException, ObjectNotFoundException
 from unittest.mock import patch
 from uuid import UUID
 
-from app.src.schemas.schemas import SnapMsgCreate
+from app.schemas.schemas import SnapMsgCreate
 
 
 class TestController(unittest.TestCase):

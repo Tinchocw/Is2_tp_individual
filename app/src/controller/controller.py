@@ -1,6 +1,6 @@
 import logging
 
-from app.src.controller.exceptions import EmptyMessageException, MessageTooLongException
+from app.src.exceptions.exceptions import EmptyMessageException, MessageTooLongException
 from app.src.service.service import Service
 
 logger = logging.getLogger(__name__)

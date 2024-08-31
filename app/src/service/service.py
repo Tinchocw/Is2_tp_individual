@@ -1,9 +1,10 @@
 from app.models.snap_msg import SnapMsg
 import uuid
-from app.src.controller.exceptions import ObjectNotFoundException
+from app.src.exceptions.exceptions import ObjectNotFoundException
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class Service:
     def __init__(self):

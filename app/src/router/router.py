@@ -4,10 +4,10 @@ from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
 from app.src.controller.controller import Controller
-from app.src.controller.exceptions import EmptyMessageException, ObjectNotFoundException, MessageTooLongException
-from app.src.controller.response_model import ResponseModel
+from app.src.exceptions.exceptions import EmptyMessageException, ObjectNotFoundException, MessageTooLongException
+from app.src.controller.responses import ResponseModel
 from app.src.controller.status import Status
-from app.src.schemas.schemas import SnapMsgCreate
+from app.schemas.schemas import SnapMsgCreate
 
 logger = logging.getLogger(__name__)
 
