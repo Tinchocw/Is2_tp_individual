@@ -1,15 +1,11 @@
-import logging
-
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from app.src.controller.controller import Controller
 from app.exceptions.exceptions import EmptyMessageException, ObjectNotFoundException, MessageTooLongException
 from app.schemas.responses import ResponseModel
-from app.schemas.status import Status
 from app.schemas.schemas import SnapMsgCreate
-
-logger = logging.getLogger(__name__)
+from app.schemas.status import Status
+from app.src.controller.controller import Controller
 
 
 class Router:
@@ -68,8 +64,9 @@ class Router:
             except Exception as e:
                 return self._internal_server_error_response(e)
 
-        @self.router.delete("/snap_msg/{snap_id}",status_code=Status.http_204_no_content(), summary="Delete a snap "
-                                                           "by ID", responses=ResponseModel.delete_response_model())
+        @self.router.delete("/snap_msg/{snap_id}", status_code=Status.http_204_no_content(), summary="Delete a snap "
+                                                                                                     "by ID",
+                            responses=ResponseModel.delete_response_model())
         async def delete_snap_by_id(snap_id: str):
             try:
                 return self.controller.delete_snap_by_id(snap_id)
