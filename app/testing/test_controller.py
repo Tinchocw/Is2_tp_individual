@@ -1,6 +1,7 @@
 import unittest
 from app.src.controller.controller import Controller
-from app.src.controller.exceptions import BodyBadRequestException
+from app.src.controller.status import Status
+from app.src.controller.exceptions import EmptyMessageException, MessageTooLongException, ObjectNotFoundException
 from unittest.mock import patch
 from uuid import UUID
 
@@ -30,10 +31,10 @@ class TestController(unittest.TestCase):
     def test_02_cannot_create_a_empty_snap_message(self):
         one_snap_msg = SnapMsgCreate(message="")
 
-        with self.assertRaises(BodyBadRequestException) as context:
+        with self.assertRaises(EmptyMessageException) as context:
             self.controller.create_snap_msg(one_snap_msg)
 
-        self.assertEqual(context.exception.status_code, Controller.http_400_bad_request())
+        self.assertEqual(context.exception.status_code, Status.http_400_bad_request())
         self.assertEqual(context.exception.type, "about:blank")
         self.assertEqual(context.exception.title, "Message Empty")
         self.assertEqual(context.exception.detail, "Message field cannot be empty")
@@ -63,7 +64,8 @@ class TestController(unittest.TestCase):
 
         self.assertEqual(self.controller.get_feed(), expected_feed_response)
 
-    @patch('uuid.uuid4', side_effect=[UUID("12345678123456781234567812345678"), UUID("87654321876543218765432187654321")])
+    @patch('uuid.uuid4',
+           side_effect=[UUID("12345678123456781234567812345678"), UUID("87654321876543218765432187654321")])
     def test_05_feed_format_is_correct_with_multiple_snaps(self, mock_uuid):
         self.controller.create_snap_msg(self.one_snap_message)
         self.controller.create_snap_msg(self.another_snap_message)
@@ -86,13 +88,33 @@ class TestController(unittest.TestCase):
     def test_06_can_not_create_280_character_lenght_snap_message(self):
         snap_msg = SnapMsgCreate(message="a" * 281)
 
-        with self.assertRaises(BodyBadRequestException) as context:
+        with self.assertRaises(MessageTooLongException) as context:
             self.controller.create_snap_msg(snap_msg)
 
-        self.assertEqual(context.exception.status_code, Controller.http_400_bad_request())
+        self.assertEqual(context.exception.status_code, Status.http_400_bad_request())
         self.assertEqual(context.exception.type, "about:blank")
         self.assertEqual(context.exception.title, "Message Too Long")
         self.assertEqual(context.exception.detail, "Message field cannot be longer than 280 characters")
+        self.assertEqual(context.exception.instance, "/snap_msg/")
+
+    def test_07_can_not_get_a_snap_that_does_not_exist(self):
+        with self.assertRaises(ObjectNotFoundException) as context:
+            self.controller.get_snap_msg_by_id(UUID("12345678123456781234567812345678"))
+
+        self.assertEqual(context.exception.status_code, Status.http_404_not_found())
+        self.assertEqual(context.exception.type, "about:blank")
+        self.assertEqual(context.exception.title, "Snap not found")
+        self.assertEqual(context.exception.detail, "Snap id not found")
+        self.assertEqual(context.exception.instance, "/snap_msg/")
+
+    def test_08_can_not_delete_a_snap_that_does_not_exist(self):
+        with self.assertRaises(ObjectNotFoundException) as context:
+            self.controller.delete_snap_by_id(UUID("12345678123456781234567812345678"))
+
+        self.assertEqual(context.exception.status_code, Status.http_404_not_found())
+        self.assertEqual(context.exception.type, "about:blank")
+        self.assertEqual(context.exception.title, "Snap not found")
+        self.assertEqual(context.exception.detail, "Snap id not found")
         self.assertEqual(context.exception.instance, "/snap_msg/")
 
 
