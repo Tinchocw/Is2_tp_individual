@@ -26,7 +26,7 @@ class EmptyMessageException(BodyBadRequestException):
             type="about:blank",
             title="Message Empty",
             detail=detail,
-            instance="/snap_msg/"
+            instance="/snaps/"
         )
 
 
@@ -37,7 +37,7 @@ class ObjectNotFoundException(BodyBadRequestException):
             type="about:blank",
             title="Snap not found",
             detail=detail,
-            instance="/snap_msg/"
+            instance="/snaps/"
         )
 
 
@@ -48,5 +48,5 @@ class MessageTooLongException(BodyBadRequestException):
             type="about:blank",
             title="Message Too Long",
             detail=detail,
-            instance="/snap_msg/"
+            instance="/snaps/"
         )
