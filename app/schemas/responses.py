@@ -1,4 +1,4 @@
-from app.src.controller.status import Status
+from app.schemas.status import Status
 
 RFC_7087 = {
     "type": {

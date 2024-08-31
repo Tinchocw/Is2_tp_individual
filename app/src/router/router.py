@@ -5,8 +5,8 @@ from starlette.responses import JSONResponse
 
 from app.src.controller.controller import Controller
 from app.src.exceptions.exceptions import EmptyMessageException, ObjectNotFoundException, MessageTooLongException
-from app.src.controller.responses import ResponseModel
-from app.src.controller.status import Status
+from app.schemas.responses import ResponseModel
+from app.schemas.status import Status
 from app.schemas.schemas import SnapMsgCreate
 
 logger = logging.getLogger(__name__)

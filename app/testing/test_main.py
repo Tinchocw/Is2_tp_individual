@@ -2,7 +2,7 @@ from unittest.mock import patch
 from uuid import UUID
 
 from fastapi.testclient import TestClient
-from app.src.controller.status import Status
+from app.schemas.status import Status
 from app.main import app
 
 
