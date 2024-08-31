@@ -14,14 +14,13 @@ class TestController(unittest.TestCase):
         self.controller = Controller()
         self.one_snap_message = SnapMsgCreate(message="Hello")
         self.another_snap_message = SnapMsgCreate(message="Goodbye")
-        self.mock_uuid = UUID("12345678123456781234567812345678")
 
     @patch('uuid.uuid4', return_value=UUID("12345678123456781234567812345678"))
     def test_01_create_snap_message_with_valid_body_request(self, mock_uuid):
         snap_response = self.controller.create_snap_msg(self.one_snap_message)
 
         snap_response_expected = {
-            "id": str(self.mock_uuid),
+            "id": str(mock_uuid.return_value),
             "message": "Hello"
         }
         snap_response_body_expected = {"data": snap_response_expected}
@@ -56,7 +55,7 @@ class TestController(unittest.TestCase):
         expected_feed_response = {
             "data": [
                 {
-                    "id": str(self.mock_uuid),
+                    "id": str(mock_uuid.return_value),
                     "message": self.one_snap_message.message
                 }
             ]
