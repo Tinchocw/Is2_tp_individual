@@ -23,7 +23,7 @@ class Router:
 
     def _setup_routes(self):
 
-        @self.router.post("/snap_msg/", status_code=Status.http_201_created(), summary="Create a new snap",
+        @self.router.post("/snaps/", status_code=Status.http_201_created(), summary="Create a new snap",
                           responses=ResponseModel.post_response_model())
         async def create_snap_msg(snap_msg: SnapMsgCreate):
             try:
@@ -42,7 +42,7 @@ class Router:
             except Exception as e:
                 return self._internal_server_error_response(e)
 
-        @self.router.get("/snap_msg/", summary="A list of snaps", responses=ResponseModel.get_response_model())
+        @self.router.get("/snaps/", summary="A list of snaps", responses=ResponseModel.get_response_model())
         async def get_snap_messages():
 
             try:
@@ -50,7 +50,7 @@ class Router:
             except Exception as e:
                 return self._internal_server_error_response(e)
 
-        @self.router.get("/snap_msg/{snap_id}", summary="Retrieve a snap by ID",
+        @self.router.get("/snaps/{snap_id}", summary="Retrieve a snap by ID",
                          responses=ResponseModel.get_by_id_response_model())
         async def get_snap_by_id(snap_id: str):
             try:
@@ -64,7 +64,7 @@ class Router:
             except Exception as e:
                 return self._internal_server_error_response(e)
 
-        @self.router.delete("/snap_msg/{snap_id}", status_code=Status.http_204_no_content(), summary="Delete a snap "
+        @self.router.delete("/snaps/{snap_id}", status_code=Status.http_204_no_content(), summary="Delete a snap "
                                                                                                      "by ID",
                             responses=ResponseModel.delete_response_model())
         async def delete_snap_by_id(snap_id: str):
