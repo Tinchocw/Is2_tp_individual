@@ -110,7 +110,7 @@ class ResponseModel:
     @classmethod
     def delete_response_model(cls):
         return {
-            Status.http_200_ok(): {
+            Status.http_204_no_content(): {
                 "description": "Snap deleted successfully"
             },
             Status.http_404_not_found(): {
