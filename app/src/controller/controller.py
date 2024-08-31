@@ -1,6 +1,6 @@
 import logging
 
-from app.src.exceptions.exceptions import EmptyMessageException, MessageTooLongException
+from app.exceptions.exceptions import EmptyMessageException, MessageTooLongException
 from app.src.service.service import Service
 
 logger = logging.getLogger(__name__)
@@ -48,7 +48,6 @@ class Controller:
         if len(a_snap_msg) > 280:
             logger.info("Message field is too long")
             raise MessageTooLongException("Message field cannot be longer than 280 characters")
-
 
     def _create_snap_response(self, a_snap_msg):
         snap_response_expected = {

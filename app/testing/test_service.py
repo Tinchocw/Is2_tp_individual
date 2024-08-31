@@ -1,6 +1,6 @@
 import unittest
 from app.src.service.service import Service
-from app.src.exceptions.exceptions import ObjectNotFoundException
+from app.exceptions.exceptions import ObjectNotFoundException
 
 
 class ServiceTest(unittest.TestCase):

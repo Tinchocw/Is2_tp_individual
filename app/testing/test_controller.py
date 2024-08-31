@@ -1,7 +1,7 @@
 import unittest
 from app.src.controller.controller import Controller
 from app.schemas.status import Status
-from app.src.exceptions.exceptions import EmptyMessageException, MessageTooLongException, ObjectNotFoundException
+from app.exceptions.exceptions import EmptyMessageException, MessageTooLongException, ObjectNotFoundException
 from unittest.mock import patch
 from uuid import UUID
 

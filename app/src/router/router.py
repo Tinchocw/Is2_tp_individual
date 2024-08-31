@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
 from app.src.controller.controller import Controller
-from app.src.exceptions.exceptions import EmptyMessageException, ObjectNotFoundException, MessageTooLongException
+from app.exceptions.exceptions import EmptyMessageException, ObjectNotFoundException, MessageTooLongException
 from app.schemas.responses import ResponseModel
 from app.schemas.status import Status
 from app.schemas.schemas import SnapMsgCreate

@@ -1,6 +1,6 @@
 from app.models.snap_msg import SnapMsg
+from app.exceptions.exceptions import ObjectNotFoundException
 import uuid
-from app.src.exceptions.exceptions import ObjectNotFoundException
 import logging
 
 logger = logging.getLogger(__name__)
