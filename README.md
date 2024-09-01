@@ -19,8 +19,7 @@ Lo más desafiante del proyecto fue entender como implementar las diferentes cap
 
 ## Pre-requisitos
 
-- Docker 27.2.0
-
+El lenguaje de programación utilizado para este proyecto es Python 3.10.12. Además, se utilizó Docker 27.2.0 para poder construir la imagen del servicio.
 
 
 ## Comandos para Construir la Imagen de Docker
