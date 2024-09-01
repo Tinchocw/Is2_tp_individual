@@ -37,7 +37,7 @@ class TestController(unittest.TestCase):
         self.assertEqual(context.exception.type, "about:blank")
         self.assertEqual(context.exception.title, "Message Empty")
         self.assertEqual(context.exception.detail, "Message field cannot be empty")
-        self.assertEqual(context.exception.instance, "/snap_msg/")
+        self.assertEqual(context.exception.instance, "/snaps/")
 
     def test_03_feed_format_is_correct_when_no_snaps_present(self):
         feed = self.controller.get_feed()
@@ -94,7 +94,7 @@ class TestController(unittest.TestCase):
         self.assertEqual(context.exception.type, "about:blank")
         self.assertEqual(context.exception.title, "Message Too Long")
         self.assertEqual(context.exception.detail, "Message field cannot be longer than 280 characters")
-        self.assertEqual(context.exception.instance, "/snap_msg/")
+        self.assertEqual(context.exception.instance, "/snaps/")
 
     def test_07_can_not_get_a_snap_that_does_not_exist(self):
         with self.assertRaises(ObjectNotFoundException) as context:
@@ -104,7 +104,7 @@ class TestController(unittest.TestCase):
         self.assertEqual(context.exception.type, "about:blank")
         self.assertEqual(context.exception.title, "Snap not found")
         self.assertEqual(context.exception.detail, "Snap id not found")
-        self.assertEqual(context.exception.instance, "/snap_msg/")
+        self.assertEqual(context.exception.instance, "/snaps/")
 
     def test_08_can_not_delete_a_snap_that_does_not_exist(self):
         with self.assertRaises(ObjectNotFoundException) as context:
@@ -114,7 +114,7 @@ class TestController(unittest.TestCase):
         self.assertEqual(context.exception.type, "about:blank")
         self.assertEqual(context.exception.title, "Snap not found")
         self.assertEqual(context.exception.detail, "Snap id not found")
-        self.assertEqual(context.exception.instance, "/snap_msg/")
+        self.assertEqual(context.exception.instance, "/snaps/")
 
 
 if __name__ == '__main__':
